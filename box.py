@@ -161,13 +161,13 @@ class BoxWorld(object):
         self.char = Character(self.bmap)        #Objeto do personagem
         appuifw.app.screen = "large"
         appuifw.app.menu = [
-            (u"Reiniciar", lambda:self.startMap(self.num_map)),
-            (u"Ir para", self.changeMap),
+            (u"(Re)start", lambda:self.startMap(self.num_map)),
+            (u"Change map", self.changeMap),
             (
-                u"Modo",
+                u"Mode",
                 (
-                    (u"Retrato", lambda:self.modeGame('portrait')),
-                    (u"Paisagem", lambda:self.modeGame('landscape'))
+                    (u"Portrait", lambda:self.modeGame('portrait')),
+                    (u"Landscape", lambda:self.modeGame('landscape'))
                 )
             )
         ]
@@ -266,13 +266,13 @@ class BoxWorld(object):
 
         elif ev == key_codes.EKeyBackspace:
             self.undo()  
-        elif ev == key_codes.EKeyLeftArrow:
+        elif ev == key_codes.EKey4:
             self.moveCamera((self.center[0] - BMap.BOX_SIZE, self.center[1]))
-        elif ev == key_codes.EKeyRightArrow:
+        elif ev == key_codes.EKey6:
             self.moveCamera((self.center[0] + BMap.BOX_SIZE, self.center[1]))
-        elif ev ==  key_codes.EKeyDownArrow: 
+        elif ev ==  key_codes.EKey8: 
             self.moveCamera((self.center[0], self.center[1]  + BMap.BOX_SIZE))
-        elif ev == key_codes.EKeyUpArrow: 
+        elif ev == key_codes.EKey2: 
             self.moveCamera((self.center[0], self.center[1]  - BMap.BOX_SIZE))
 
 
@@ -301,18 +301,18 @@ class BoxWorld(object):
         if mode == 'portrait':
             appuifw.app.orientation = mode
             self.keys = {
-                'up': key_codes.EKey2,
-                'down': key_codes.EKey8,
-                'left': key_codes.EKey4,
-                'right': key_codes.EKey6
+                'up': key_codes.EKeyUpArrow,
+                'down': key_codes.EKeyDownArrow,
+                'left': key_codes.EKeyLeftArrow,
+                'right': key_codes.EKeyRightArrow
             }
         elif mode == 'landscape':
             appuifw.app.orientation = mode
             self.keys = {
-                'up': key_codes.EKey6,
-                'down': key_codes.EKey4,
-                'left': key_codes.EKey2,
-                'right': key_codes.EKey8
+                'up': key_codes.EKeyRightArrow,
+                'down': key_codes.EKeyLeftArrow,
+                'left': key_codes.EKeyUpArrow,
+                'right': key_codes.EKeyDownArrow
             }
         self.img = graphics.Image.new(self.canvas.size)
         self.moveToCenter()
@@ -328,7 +328,7 @@ class BoxWorld(object):
 
     def changeMap(self):
         """Troca de mapa com entrada do usuário"""
-        mapID = appuifw.query(u"Digite o id do mapa","number")
+        mapID = appuifw.query(u"Enter Map ID","number")
         if mapID != None:
             self.startMap(int(mapID))
 
