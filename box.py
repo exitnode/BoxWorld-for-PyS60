@@ -335,7 +335,7 @@ class BoxWorld(object):
 
     def win(self):
         """Avança para o próximo mapa com mensagem de vitória"""
-        appuifw.note(u"Voce ganhou!",'conf')
+        appuifw.note(u"Well Done!",'conf')
         self.startMap(self.num_map + 1)   
 
 
